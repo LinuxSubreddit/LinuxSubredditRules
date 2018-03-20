@@ -1,3 +1,15 @@
+***********************************Misc Rules**********************************
+
+---
+# remove all posts/comments by kruug
+type: any
+author:
+  name: Kruug
+action: remove
+message: |
+    Listen Kruug, you're a terrible moderator and should really step down.
+
+
 *****************************Affiliate Links Rules*****************************
 
 ******************************Click-bait Rules*********************************
