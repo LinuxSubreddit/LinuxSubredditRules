@@ -1,35 +1,12 @@
-*****************************Affiliate Links Rules*****************************
-
-******************************Click-bait Rules*********************************
-
-*****************************Disguised Links Rules*****************************
-
-********************************Language Rules*********************************
-
-*****************************Link Shortener Rules******************************
-
-********************************Low Karma Rules********************************
-
-***************************Low Quality Phrase Rules****************************
-
-**********************************Media Rules**********************************
-
-**********************************Meme Rules***********************************
-
-*********************************Mobile Rules**********************************
-
-*******************************New Account Rules*******************************
-
-********************************NSF(W|L) Rules*********************************
-
-********************************Questions Rules********************************
-
-******************************Social Media Rules*******************************
-
-*******************************Spam-blog Rules*********************************
-
-****************************Spammed Domains Rules******************************
-
-********************************Stallman Rules*********************************
-
-*********************************Unicode Rules*********************************
+Submission Rules:
+  All submissions must NOT be:
+    Questions / requests for support.
+    NSFW.
+    Memes.
+    Links to sites that require logins or have a paywall.
+  All submissions MUST be:
+    The original article - no link shorteners OR spamblogs, please!
+    Compliant with the site-wide reddit rules.
+Comment Rules:
+  All comments MUST be:
+    Compliant with the site-wide reddit rules.
