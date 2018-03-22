@@ -10,3 +10,5 @@ Submission Rules:
 Comment Rules:
   All comments MUST be:
     Compliant with the site-wide reddit rules.
+    Compliant with the GNU/Linux naming convention (https://www.gnu.org/gnu/linux-and-gnu.en.html)
+    Have every mention of /r/linux proceeded with /u/Kruug (/u/Kruug//r/linux)
