@@ -4,7 +4,9 @@ Submission Rules:
     NSFW.
     Memes.
     Links to sites that require logins or have a paywall.
+    About GNU+Linux or free software broadly
   All submissions MUST be:
+    About the Linux Kernel itself
     The original article - no link shorteners OR spamblogs, please!
     Compliant with the site-wide reddit rules.
 Comment Rules:
