@@ -16,6 +16,12 @@
 ## Text: "KDE Developer" Flair: kdedeveloper
 ## Text: "Kernel Developer" Flair: coredeveloper
 ## Text: "Gnome Developer" Flair: gnomedeveloper
+## Text: "Distro News" Flair: distronews
+## Text: "Popular Application" Flair: popularapplication
+## Text: "AlternativeOS" Flair: alternativeos
+## Text: "Microsoft" Flair: microsoft
+## Text: "Mobile OS" Flair: mobilelinuxbased
+## Text: "Removed" Flair: removed
 ##################
 ---
 ##----------------------------
@@ -30,7 +36,7 @@
 ##----------------------------
     title+media_title (regex): ["character are you","\\d{1,2} things only","before you die","is this the","you probably d(id|o)n't","are the most","in your life","\\d{1,2} things that","things you probably","reasons you should","probably d(id|o)n't know","\\d{1,2} most important","\\d{1,2} (signs|reasons) (you('re)?|why)","\\d{1,2} most important","d(id|o)n't know about", "(photos|pictures|images) that prove","blow your mind","game of thrones","things that (actually |really )?happen(ed)?","in real life","will blow your","\\d{1,2} dogs who","\\d{1,2} things you", "you should be", "things you d(id|o)n't"]
     action: report
-    report_reason: Possible Clickbait - {{match-1}}
+    report_reason: "Possible Clickbait - {{match-1}}"
 ---
 ##----------------------------
 ##    Disguised Links Rules, from automoderator library
@@ -44,10 +50,10 @@
 ## Language/Profanity - (mostly from automoderator example) - remove and modmail
 ##----------------------------
     moderators_exempt: true
-    title+body (regex): ["cocks?([ -]?suck(ers?|ing)?)?","cum(ming|[ -]shots?)?", "n[ioe0@][g]{1,}[aioe0@]{1,}r", "f[aioe0@]{1,}[g]{1,}[aioe03@]{1,}t"]
+    title+body (regex): ["cock[sz]?([ -]?suck(er[sz]?|ing)?)?","cum(ming|[ -]shot[sz]?)?", "n[ioe0@][g]{1,}[aioe0@]{1,}r[sz]?", "f[aioe0@]{1,}[g]{1,}[aioe03@]{1,}t[sz]?", "k[i1]ke[sz]?"]
     action: remove
     message: |
-        Your [{{kind}}]({{permalink}}) in /r/{{subreddit}} was automatically removed for use of profanity.
+        Your [{{kind}}]({{permalink}}) in /r/{{subreddit}} was automatically removed for use of extreme profanity.
 
         /r/{{subreddit}} is for productive discussion, so please watch your language.
     modmail: The above post by /u/{{author}}, contained profanity not becoming of the /r/Linux community. The comment was removed. Please review users account for further action.
@@ -56,8 +62,9 @@
 ## Language/Profanity - (mostly from automoderator example) - report, warn, and modmail
 ##----------------------------
     moderators_exempt: true
-    title+body (regex): ["a(ss|rse|es)([ -]?holes?)?","b(i|\\*)o?(tch|\\*{3})(y|es)?", "cunts?","((mother|motha|mutha)[ -]?)?f(u?c?k?k|\\*ck|\\*{0,2}k|\\*{3})(er|ed|ing|s)?", "s(h(i|ar?|\\*)t|\\*{3}|h\\*{2})(s|ter|e|ting)?"]
+    title+body (regex): ["a(ss|rse|es)([ -]?hole[sz]?)?","b(i|\\*)o?(tch|\\*{3})(y|es)?", "cunt[sz]?","((mother|motha|mutha)[ -]?)?f(u?c?k?k|\\*ck|\\*{0,2}k|\\*{3})(er|ed|ing|s)?", "s(h(i|ar?|\\*)t|\\*{3}|h\\*{2})(s|ter|e|ting)?"]
     action: report
+    report_reason: "Moderate Profanity - Please Review: {{match-1}}"
     message: |
         Your [{{kind}}]({{permalink}}) in /r/{{subreddit}} was automatically reported for review for use of profanity.
 
@@ -113,6 +120,7 @@
     author:
         account_age: "< 5 days"
     action: report
+    report_reason: "{{match-1}} - The user has an account less than 5 days old."
 
 ---
 ##----------------------------
@@ -181,17 +189,29 @@
 ## Keep in mind there's various other sections about project-specific whitelisting
 ##----------------------------
     moderators_exempt: false
-    domain: ["omgubuntu.co.uk", "phoronix.com"]
-    action: remove
+    domain: ["omgubuntu.co.uk", "zdnet.com"]
+    action: spam
     set_flair: ["Removed","removed"]
     comment: |
-        Your [{{kind}}]({{permalink}}) in /r/{{subreddit}} was automatically removed because it has been identified as blog-spam.
+        Your [{{kind}}]({{permalink}}) in /r/{{subreddit}} was automatically removed because it has been identified as either blog-spam, a link aggregator, or an otherwise low-effort news site. 
 
-        Blog-spam contains rehosted content, usually paird with privacy-invading ads.
+        Your submission contains rehosted content, usually paird with privacy-invading ads.
 
-        Please re-post your {{kind}} using the original source.
+        Please re-post your {{kind}} using the original source with the original title.
 ---
+##----------------------------
+## Spam-blog rules - Phoronix
+## Keep in mind there's various other sections about project-specific whitelisting
+##----------------------------
+    moderators_exempt: false
+    url (includes): "phoronix.com/scan.php?page=news_item"
+    action: spam
+    set_flair: ["Removed","removed"]
+    comment: |
+        Your [{{kind}}]({{permalink}}) in /r/{{subreddit}} was automatically removed because Phoronix news items are low-effort content. Phoronix articles and benchmarks are still allowed.
 
+        Please re-post your {{kind}} using the original source with the original title.
+---
 ##----------------------------
 ## Mobile Rules - ask user to submit full domain
 ##----------------------------
@@ -225,14 +245,14 @@
 ## Keep in mind there's various other sections about project-specific whitelisting
 ##----------------------------
     moderators_exempt: false
-    domain: ["developers.facebook.com", "blog.documentfoundation.org"]
+    url (includes): ["developers.facebook.com", "blog.documentfoundation.org"]
     action: approve
 ---
 ##----------------------------
 ## GNU/Linux Developer blog Domain Whitelist and tagging
 ##----------------------------
     moderators_exempt: false
-    domain: ["kroah.com", "plus.google.com/+LinusTorvalds", "lkml.org"]
+    url (includes): ["kroah.com", "plus.google.com/+LinusTorvalds", "lkml.org"]
     action: approve
     set_flair: ["GNU/Linux Developer","coredeveloper"]
 ---
@@ -240,7 +260,7 @@
 ## KDE Developer blog Domain Whitelist and tagging
 ##----------------------------
     moderators_exempt: false
-    domain: ["blogs.kde.org", "blog.martin-graesslin.com" , "planet.kde.org", "blog.neon.kde.org", "dot.kde.org"]
+    url (includes): ["blogs.kde.org", "blog.martin-graesslin.com" , "planet.kde.org", "blog.neon.kde.org", "dot.kde.org"]
     action: approve
     set_flair: ["KDE","kdedeveloper"]
 ---
@@ -248,7 +268,7 @@
 ## Gnome Developer blog Domain Whitelist and tagging
 ##----------------------------
     moderators_exempt: false
-    domain: ["planet.gnome.org"]
+    url (includes): ["planet.gnome.org", "blogs.gnome.org"]
     action: approve
     set_flair: ["GNOME","gnomedeveloper"]
 ---
@@ -256,9 +276,70 @@
 ## Enlightenment Developer blog Domain Whitelist and tagging
 ##----------------------------
     moderators_exempt: false
-    domain: ["enlightenment.org/news"]
+    url (includes): ["enlightenment.org/news"]
     action: approve
     set_flair: ["Enlightenment","enlightmentdeveloper"]
+---
+##----------------------------
+## Various Distro Developer blog Domain Whitelist and tagging
+##----------------------------
+    moderators_exempt: false
+    url (includes): ["debian.org"]
+    action: approve
+    set_flair: ["Distro News","distronews"]
+---
+##----------------------------
+## Various Distro Developer blog Domain Whitelist and tagging - Specifics to avoid popular OS names used in domain
+##----------------------------
+    moderators_exempt: false
+    url (includes): ["ubuntu.com"]
+    action: approve
+    set_flair: ["Distro News","distronews"]
+---
+##----------------------------
+## Various Popular Tools Domain Whitelist and tagging
+##----------------------------
+    moderators_exempt: false
+    url (includes): ["blog.documentfoundation.org"]
+    action: approve
+    set_flair: ["Popular Application","popularapplication"]
+---
+##----------------------------
+## Various AlternativeOS Domain Whitelist and tagging
+##----------------------------
+    moderators_exempt: false
+    url (includes): ["qubes-os.org", "reactos.org"]
+    action: approve
+    set_flair: ["AlternativeOS","alternativeos"]
+---
+##----------------------------
+## Various MobileOS Domain Whitelist and tagging
+##----------------------------
+    moderators_exempt: false
+    url (includes): ["lineageos.org", "xda-developers.com"]
+    action: approve
+    set_flair: ["Mobile OS","mobilelinuxbased"]
+---
+##----------------------------
+## Microsoft Special Rule
+##----------------------------
+    moderators_exempt: false
+    url (includes): ["msdn.com"]
+    set_flair: ["Microsoft","microsoft"]
+---
+##----------------------------
+## TempleOS Special Rule
+##----------------------------
+    moderators_exempt: false
+    url (includes): ["templeos.org"]
+    action: report
+    report_reason: "{{match-1}} - TempleOS submission - strong language is used in the source"
+    set_nsfw: true
+    set_flair: ["TempleOS","alternativeos"]
+    comment:  |
+        TempleOS is a unique OS written by Terry A. Davis. Please see Wikipedia for more information: [TempleOS](https://en.wikipedia.org/wiki/TempleOS).
+
+        Within this submission you will notice strong profanity and views not associated with /r/{{subreddit}}. Comments are not immune from filtering rules, regardless if you're quoting the original source.
 ---
 ##----------------------------
 ## DOX prevention, from automod rules
