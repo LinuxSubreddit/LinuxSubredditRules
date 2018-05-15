@@ -1,15 +1,3 @@
-#Submission Rules:
-#  All submissions must NOT be:
-#    Questions / requests for support.
-#    NSFW.
-#    Memes.
-#    Links to sites that require logins or have a paywall.
-#  All submissions MUST be:
-#    The original article - no link shorteners OR spamblogs, please!
-#    Compliant with the site-wide reddit rules.
-#Comment Rules:
-#  All comments MUST be:
-#    Compliant with the site-wide reddit rules.
 ##################
 # r/linux rules
 ##################
@@ -74,10 +62,10 @@
 
         {{permalink}}
 
-        The above post by /u/{{author}}, contained profanity not becoming of the /r/{{subreddit}} community. The comment was removed. Please review users account for further action.
+        The above post by /u/{{author}}, contained profanity not becoming of the /r/{{subreddit}} community and removed. Please review users account for further action.
 ---
 ##----------------------------
-## Language/Profanity - (mostly from automoderator example) - report, warn, and modmail
+## Language/Profanity - (mostly from automoderator example) - report, warn
 ##----------------------------
     moderators_exempt: true
     title+body (regex): ["a(ss|rse|es)([ -]?hole[sz]?)?","b(i|\\*)o?(tch|\\*{3})(y|es)?", "cunt[sz]?","((mother|motha|mutha)[ -]?)?f(u?c?k?k|\\*ck|\\*{0,2}k|\\*{3})(er|ed|ing|s)?", "s(h(i|ar?|\\*)t|\\*{3}|h\\*{2})(s|ter|e|ting)?"]
@@ -356,7 +344,7 @@
 ## Keep in mind there's various other sections about project-specific whitelisting
 ##----------------------------
     moderators_exempt: false
-    domain: ["omgubuntu.co.uk", "zdnet.com", "gamingonlinux.com"]
+    domain: ["omgubuntu.co.uk", "zdnet.com", "gamingonlinux.com", "softpedia.com"]
     action: spam
     set_flair: ["Removed","removed"]
     comment: |
