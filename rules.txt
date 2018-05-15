@@ -11,6 +11,8 @@
 #  All comments MUST be:
 #    Compliant with the site-wide reddit rules.
 ##################
+# r/linux rules
+##################
 # Required Link Flair names:
 ## Text: "Enlightenment Developer" Flair:enlightmentdeveloper
 ## Text: "KDE Developer" Flair: kdedeveloper
@@ -20,7 +22,8 @@
 ## Text: "Popular Application" Flair: popularapplication
 ## Text: "AlternativeOS" Flair: alternativeos
 ## Text: "Microsoft" Flair: microsoft
-## Text: "Mobile OS" Flair: mobilelinuxbased
+## Text: "Mobile Linux" Flair: mobilelinuxbased
+## Text: "Free Software Foundation" Flair: fsf
 ## Text: "Removed" Flair: removed
 ##################
 ---
@@ -31,11 +34,16 @@
     action: filter
     action_reason: Amazon referral
 ---
+    url+body (regex): [=LINKSHAR', CJPID=', 'bestbuy\.com/\S*[?&](CJPID|AID|PID)=', 'beta\.theshowdowneffect\.com/\S*[?&]ref=', 'codes4free\.com/\S*[?&]mn=', 'ebay\..+?/\S*[?&](afepn|campid|pid=)', 'epicfreeprizes\.com/\S*[?&]ref=', 'fallensword\.com/\S*[?&]ref=', 'free-steam-games\.com/\S*[?&]id=', 'freeleaguecodes\.com/\S*ref=', 'freeleaguecodes\.com/ref', 'freeleaguecodes\.net/ref[?&]id=', 'gamefly\.com/\S*[?&]adtrackingid=', 'gamersgate\.com/\S*[?&]caff=', 'gamestop\.com/\S*[?&](utm_source=linkshare|utm_medium=affiliate|utm_campaign=deeplink|sourceID=|cid=afl_|affID=)', 'getfreesteamgames.net/\S*[?&]id=', 'go\.microsoft\.com/\S*[?&]rrid=', 'gog\.com/\S*[?&]pp=', 'greenmangaming\.com/\S*[?&]gmgr=', 'lnc\.hr/', 'marapets\.com/\S*[?&]id=', 'microsoftstore\.com/\S*[?&]ClickID=', 'mspointscodes.com/\S*[?&]i=', 'newegg\.com/\S*[?&](AID|PID)=', 'origin\.com/\S*[?&](lssiteid=|sourceid=origin_aff_|c=)', 'play-asia\.com/\S*SOap', 'playhawken\.com/\S*[?&]ref=', 'points2shop.com/\S*[?&]ref=', 'razerzone.com/\S*[?&]rid=', 'robertsspaceindustries\.com/star-citizen/\S*[?&]rid=', 'signup\.leagueoflegends\.com/\S*[?&]ref=', 'steam-games-free\.com/\S*[?&]i=', 'steam-refferals\.com/\S*[?&]id=', 'steamcredits\.com/\S*[?&]id=', 'steelseries\.com/backtoschool\S*[?&]code=', 'strt\.cc/\S*[?&]ref=', 'superpoints\.org/\S*[?&]ref=', 'thegreatest\.raidcall\.com/ref/', 'tigerdirect\.com/\S*[?&]AffiliateID=', 'walmart\.com/\S*[?&](wmlspartner|veh=affsourceid=)', 'waroftherosesthegame\.com/\S*[?&]ref=', 'woobox\.com/']
+    action: remove
+    comment: |
+        This {{kind}} has been removed due to affiliate links.  If you feel this action has been made in error, please [message the mods](https://www.reddit.com/message/compose?to=%2Fr%2F{{subreddit}}&subject=Affiliate%20False%20Positive&message=Please%20Review%20{{permalink}}) to review it.
+---
 ##----------------------------
 ##    Click-bait Rules
 ##----------------------------
     title+media_title (regex): ["character are you","\\d{1,2} things only","before you die","is this the","you probably d(id|o)n't","are the most","in your life","\\d{1,2} things that","things you probably","reasons you should","probably d(id|o)n't know","\\d{1,2} most important","\\d{1,2} (signs|reasons) (you('re)?|why)","\\d{1,2} most important","d(id|o)n't know about", "(photos|pictures|images) that prove","blow your mind","game of thrones","things that (actually |really )?happen(ed)?","in real life","will blow your","\\d{1,2} dogs who","\\d{1,2} things you", "you should be", "things you d(id|o)n't"]
-    action: report
+    action: filter
     action_reason: "Possible Clickbait - {{match-1}}"
 ---
 ##----------------------------
@@ -43,9 +51,8 @@
 ##----------------------------
     moderators_exempt: false
     body (regex): "(\\[(?P<text>(http|www)\\S+)\\]\\((?!(?P=text))(http|www)\\S+\\))"
-    action: remove
-    action_reason: "Disguised link"
-    modmail: The above {{kind}} by /u/{{author}} was removed because it contained a disguised link. Please investigate immediately as the user was likely trying to circumvent rules.
+    action: filter
+    action_reason: "Disguised link - {{match-1}}"
 ---
 ##----------------------------
 ## Language/Profanity (mostly from automoderator example) - Severe - remove, message user, and modmail
@@ -58,20 +65,24 @@
         Your [{{kind}}]({{permalink}}) in /r/{{subreddit}} was automatically removed for use of extreme profanity.
 
         /r/{{subreddit}} is for productive discussion, so please watch your language.
-    modmail: The above post by /u/{{author}}, contained profanity not becoming of the /r/Linux community. The comment was removed. Please review users account for further action.
+
+        **Rule:**
+
+        >**Reddiquette, trolling, or poor discussion** - r/linux asks all users follow [Reddiquette.](https://www.reddit.com/wiki/reddiquette) Reddiquette is ever changing, so a revisit once in awhile is recommended. Top violations of this rule are trolling, starting a flamewar, or not "Remembering the human" aka being hostile or incredibly impolite.
+    modmail_subject: "Severe Profanity - Please review"
+    modmail: |
+
+        {{permalink}}
+
+        The above post by /u/{{author}}, contained profanity not becoming of the /r/{{subreddit}} community. The comment was removed. Please review users account for further action.
 ---
 ##----------------------------
 ## Language/Profanity - (mostly from automoderator example) - report, warn, and modmail
 ##----------------------------
     moderators_exempt: true
     title+body (regex): ["a(ss|rse|es)([ -]?hole[sz]?)?","b(i|\\*)o?(tch|\\*{3})(y|es)?", "cunt[sz]?","((mother|motha|mutha)[ -]?)?f(u?c?k?k|\\*ck|\\*{0,2}k|\\*{3})(er|ed|ing|s)?", "s(h(i|ar?|\\*)t|\\*{3}|h\\*{2})(s|ter|e|ting)?"]
-    action: report
+    action: filter
     action_reason: "Moderate Profanity"
-    message: |
-        Your [{{kind}}]({{permalink}}) in /r/{{subreddit}} was automatically reported for review for use of profanity.
-
-        /r/{{subreddit}} is for productive discussion, so please watch your language.
-    modmail: The above post by /u/{{author}}, contained profanity not becoming of the /r/Linux community. The comment was removed. Please review users account for further action.
 ---
 ##----------------------------
 ## Link Shortener Rules - Auto remove with comment. From Automod example.
@@ -86,6 +97,10 @@
         URL shorteners are not permitted in /r/{{subreddit}} as they impair our ability to enforce link blacklists.
 
         Please re-post your {{kind}} using direct, full-length URL's only.
+
+        **Rule:**
+
+        >In short: if your link doesn't go right to the content it will be removed. Sites that require a login to view the content are not allowed in r/linux. Example: A private Facebook post or a news organization that doesn't have free article views. URL shorteners and links that misdirect users to ads/jokes are also banned.
 ---
 ##----------------------------
 ##  Spam Link Shortener Rules - Auto remove w/o comment
@@ -96,17 +111,20 @@
     action_reason: Spam domain
 ---
 ##----------------------------
-## New Account Rules - 1 day removal
+## Whitelisting rules
+##----------------------------
+    domain: [twitter.com, goo.gl]
+    action: approve
+---
+##----------------------------
+## New Account Rules - 1 day filter
 ##----------------------------
     moderators_exempt: false
     author:
        account_age: < 1
     type: submission
-    action: remove
+    action: filter
     action_reason: Low account age
-    comment:  |
-        Your account is too young. Please wait at least 5 days to begin posting. You're still welcome to comment on other posts
-    action_reason: Account age
 ---
 ##----------------------------
 ## New Account Rules - 5 day filter
@@ -120,15 +138,6 @@
     action_reason: Account age
 ---
 ##----------------------------
-## New Account Rules - 5 day filter
-## Only report the user for review. See also: Low karma section.
-##----------------------------
-    author:
-        account_age: "< 5 days"
-    action: report
-    action_reason: "{{match-1}} - The user has an account less than 5 days old."
----
-##----------------------------
 ## Low Karma Rules - Remove on -50.
 ## See also: User Age section section.
 ##----------------------------
@@ -137,24 +146,28 @@
     action: remove
     action_reason: Removed user with low account karma
     message: |
-        Your [{{kind}}]({{permalink}}) in /r/{{subreddit}} was automatically removed because you have -50 karma or more. This is usually an indication that you're a troll. Please raise your karma before posting in /r/{{subreddit}} again.
-
+        Your [{{kind}}]({{permalink}}) in /r/{{subreddit}} was automatically removed because you have -50 karma or more. This is usually an indication that you're a troll. Please raise your sitewide karma before posting in /r/{{subreddit}} again.
 ---
 ##----------------------------
 ## Low Quality Phrase Rules
 ## See also: Click-bait Rules
 ##----------------------------
-#TODO
+    body (regex): ["science bitches", "it's happening", "(yo)?u monster", "Came here to say this", "challenge accepted", "(I )?read that as", "Lost it at", "feels good man", "seems legit", "was(n't)? (not )?disappoint(ed)?", "you can'?t explain that", "You(\\.|,)? I like you", "(\\[|\\()? ?\\w{3,}[ -]intensifies ?(\\]|\\))?", "(deleted|removed) comments?", "(dick|penis) stuck in", "lawyer up,? delete facebook,? hit (the )?gym", "th?ree[ -]?fi(dd|ft)y", "\\w{3,} as fuc?k", "\\w{3,}, not even once", "are you fucking sorry", "bae caught me", "banana (for|4) ?scale", "Be attractive[.{1,30}]don't be unattractive", "blackjack and hookers", "can confirm[,:; -]? am", "can'?t? fap to this", "chuck testa", "comment (apocalypse|graveyard)", "cool story br[oa]", "dat \\w{3,} doe", "dick in crazy", "doin'?g? god'?s work", "enough internet for today", "faith in humanity (restored|lost)", "gentleman and a scholar", "I did nazi that c[ou]ming", "I know that feel", "i'?ll just leave this here", "in soviet russia", "it went ok(ay)?", "just the tip", "kill (it )?with fire", "like a b[ao]u?[sw]s", "logged in to upvote", "M\\. Night", "magnificent bastard", "Manly tears were shed", "mind ?(=|equals)? ?blown", "Mom'?s spaghetti", "nailed it", "(nope ?){2,}", "now kiss", "op pl[sz]", "OP will ?(surely )?deliver", "plot twist", "right in the feels", "risky click", "said no one ever", "she wants the d", "shots fired", "should feel bad", "show myself out", "sighs?( ?.+ ?)?unzips pants", "Step [0-9]: \\?{3}", "swe[ea]t karma", "take my money", "Thanks [O0]bama", "that escalated quickly", "this (checks out|gave me cancer|guy gets it|is bullshit|kills the|will be downvoted)", "to the top with you", "watch the world burn", "weirdest boner", "wh?[au]tf? (did I just read|is this I don'?t even|happened here)", "Who'?s cutting onions", "Damn onions", "(I have|are) you tagged as", "why we can'?t have nice things", "won the internet", "would (not )?bang", "(\\w{3,}|u) had one job", "you must be new", "you wouldn'?t download a car", "frozen soap", "midnight chili", "life.{1,15}finds a way", "literally hitler", "(yo)?u ?w[0oau]t ?m[8a]t?e?", "i (c|see) w(ha|u|o)t (yo)?u did th[ea]re?", "RIP in p(ie|ea)ces?", "prepare (yo)?ur anus", "le reddit", "we did it reddit", "doesn'?t matter[\\.,;:]? had sex", " \\d{1,5} ?edgy ?\\d{1,5} ?me", "d[o0]nger"]
+    body_shorter_than: 31
+    action: report
+    report_reason: Possible low-quality comment - {{match-1}}
 ---
 ##----------------------------
 ## Meme Rules
 ##----------------------------
-#TODO
----
-##----------------------------
-## Stallman Rules
-##----------------------------
-#TODO, an automod response rule about the "what you're referring to is GNU etc" comment
+    standard: meme generator sites
+    action: remove
+    comment: |
+        Your [{{kind}}]({{permalink}}) in /r/{{subreddit}} has been automatically removed because it is from a meme generator website. Memes are not allowed in r/{{subreddit}}, please see r/r/{{subreddit}}memes instead.
+
+        **Rule:**
+
+        >Meme posts are not allowed in r/linux. Feel free to post over at /r/linuxmemes instead
 ---
 ##----------------------------
 ## Media Rules
@@ -167,68 +180,23 @@
     moderators_exempt: false
     title+body (regex): ["nsf[wl]", "not safe for (work|life)"]
     action: report
-    action_reason: "{{match-1}}"
+    action_reason: "{{match-1}} - please review"
     set_nsfw: true
 ---
 ##----------------------------
-## Questions indentifier rule - Send to /r/linuxquestions
-##----------------------------
-    moderators_exempt: false
-    title (ends-with): ['?']
-    action: remove
-    comment: |
-        Your [{{kind}}]({{permalink}}) in /r/{{subreddit}} was automatically removed for being a question.
-
-        /r/{{subreddit}} is not a support forum, however we encourage the post to be made over on /r/linuxquestions
----
-##----------------------------
-## Social Media Blacklist
-##----------------------------
-    moderators_exempt: false
-    domain: ['facebook.com']
-    action: remove
-    set_flair: ["Removed","removed"]
-    comment: |
-        Your [{{kind}}]({{permalink}}) in /r/{{subreddit}} was automatically removed because it is a link to non-technical social media.
----
-##----------------------------
-## Spam-blog rules - Complete Removal
-## Keep in mind there's various other sections about project-specific whitelisting
-##----------------------------
-    moderators_exempt: false
-    domain: ["omgubuntu.co.uk", "zdnet.com"]
-    action: spam
-    set_flair: ["Removed","removed"]
-    comment: |
-        Your [{{kind}}]({{permalink}}) in /r/{{subreddit}} was automatically removed because it has been identified as either blog-spam, a link aggregator, or an otherwise low-effort news site. 
-
-        Your submission contains rehosted content, usually paird with privacy-invading ads.
-
-        Please re-post your {{kind}} using the original source with the original title.
----
-##----------------------------
-## Spam-blog rules - Phoronix
-## Keep in mind there's various other sections about project-specific whitelisting
-##----------------------------
-    moderators_exempt: false
-    url (includes): "phoronix.com/scan.php?page=news_item"
-    action: spam
-    set_flair: ["Removed","removed"]
-    comment: |
-        Your [{{kind}}]({{permalink}}) in /r/{{subreddit}} was automatically removed because Phoronix news items are low-effort content. Phoronix articles and benchmarks are still allowed.
-
-        Please re-post your {{kind}} using the original source with the original title.
----
-##----------------------------
-## Mobile Rules - ask user to submit full domain
+## Mobile Rules - ask user to submit full domain - taken from automod library
 ##----------------------------
     moderators_exempt: false
     domain (starts-with): [m., mobile.]
     action: remove
     Comment: |
-        Your submission was automatically removed because you linked to the mobile version of a website. 
+        Your submission was automatically removed because you linked to the mobile version of a website.
 
         Please submit a non-mobile link instead.
+
+        **Rule:**
+
+        >**No misdirecting links, sites that require a login, or URL shorteners** - In short: if your link doesn't go right to the content it will be removed. Sites that require a login to view the content are not allowed in r/linux. Example: A private Facebook post or a news organization that doesn't have free article views. URL shorteners and links that misdirect users to ads/jokes are also removed.
 ---
 ##----------------------------
 ## Title Emoji Rules - Enforce titles to be descriptive
@@ -243,16 +211,252 @@
         Please retry your {{kind}} using standard characters only.
 ---
 ##----------------------------
-## Unicode Rules - Remove text that can get around spam filter or be annoying in general
+## DOX prevention - Phone Numbers - from automod rules
 ##----------------------------
-#TODO
+    moderators_exempt: false
+    title+body (regex): ["\\(?(\\d{3})\\)?([ .-])(\\d{3})([ .-])(\\d{4})","(\\d{5})([ .-])(\\d{6})","\\(?(\\d{4})\\)?([ .-])(\\d{3})([ .-])(\\d{3})","\\(?(\\d{2})\\)?([ .-])(\\d{4})([ .-])(\\d{4})","\\(?(\\d{2})\\)?([ .-])(\\d{3})([ .-])(\\d{4})","\\+([\\d ]{10,15})"]
+    ~body+url (regex): "(\\[[^\\]]+?\\]\\()?(https?://|www\\.)\\S+\\)?"
+    ~body+title+url (regex): ["(800|855|866|877|888|007|911)\\W*\\d{3}\\W*\\d{4}", "\\d{3}\\W*555\\W*\\d{4}", "999-999-9999", "000-000-0000", "123-456-7890", "111-111-1111", "012-345-6789", "888-888-8888", "281\\W*330\\W*8004", "777-777-7777", "678-999-8212", "999([ .-])119([ .-])7253","0118 999 811","0118 999 881", "ac867( -)?5309", "505\\W*503\\W*4455", "1024 2048"]
+    action: remove
+    action_reason: "DOXing - phone numbers"
+    modmail_subject: Doxxing Alert!
+    modmail: |
+
+        {{permalink}}
+
+        The above {{kind}} by /u/{{author}} was removed because it contained a possible phone number. Please investigate immediately.
+
+        If the user is doxxing, [ban them](/r/{{subreddit}}/about/banned) and [report them to the reddit admins](http://www.reddit.com/message/compose?to=%2Fr%2Freddit.com&subject=Doxxing%20Report:%20%2Fu%2F{{author}}&message=%2Fu%2F{{author}}%20posted%20a%20phone%20number:%20{{permalink}}) immediately.
+##----------------------------
+## DOX prevention - Credit Card numbers
+##----------------------------
+    moderators_exempt: false
+    title+body: "\\b(?:4[0-9]{12}(?:[0-9]{3})?|5[12345][0-9]{14}|3[47][0-9]{13}|3(?:0[012345]|[68][0-9])[0-9]{11}|6(?:011|5[0-9]{2})[0-9]{12}|(?:2131|1800|35[0-9]{3})[0-9]{11})\\b"
+    action: remove
+    action_reason: 'A credit card number was detected.'
+    modmail_subject: Doxxing Alert!
+    modmail: |
+
+        {{permalink}}
+
+        The above {{kind}} by /u/{{author}} was removed because it contained a possible credit card number. Please investigate immediately.
+
+        If the user is doxxing, [ban them](/r/{{subreddit}}/about/banned) and [report them to the reddit admins](http://www.reddit.com/message/compose?to=%2Fr%2Freddit.com&subject=Doxxing%20Report:%20%2Fu%2F{{author}}&message=%2Fu%2F{{author}}%20posted%20a%20credit%20card%20number:%20{{permalink}}) immediately.
+---
+##----------------------------
+## mods are asleep rules - avoid attempts to circumvent rules
+##----------------------------
+    moderators_exempt: false
+    title+media_title (regex): ['m[ioe0@]ds? (are|r|our) [a@]?sl[e]{1,}p']
+    type: submission
+    action: filter
+    comment: |
+        NOT AUTOMOD. AUTOMOD IS ALWAYS ONLINE.
+
+        But in all seriousness, this post has been filtered. That means it's removed until a mod approves or permanently removes it. Attempting to circumvent this filtering will lead to disciplinary actions on your account.
+---
+##----------------------------
+## Start - Require Direct Image Hosts
+## Taken from automod rules with minor added domains
+##----------------------------
+---
+    domain: [gyazo.com, puu.sh, prntscr.com, postimg.org, pinterest.com, imageshack.us]
+    ~url (ends-with): [.png, .jpg, .gif, .jpeg]
+    action: remove
+    comment: |
+        Your submission has been automatically removed due to an indirect link to a hosted image.
+
+        Please be considerate of mobile and RES users, and resubmit your link with the proper file extension.
+
+        For your convenience, here is your submitted link with a .png file extension appended to the end. Please check that it works. If it does, retry your submission with this link:
+
+        {{url}}.png
+
+        If the above link does not work, right-click on your image, select *Copy Image URL*, and paste that into the reddit submission page instead.
+
+        **Rule:**
+
+        >**No misdirecting links, sites that require a login, or URL shorteners** - In short: if your link doesn't go right to the content it will be removed. Sites that require a login to view the content are not allowed in r/linux. Example: A private Facebook post or a news organization that doesn't have free article views. URL shorteners and links that misdirect users to ads/jokes are also removed.
+---
+    domain: [imgur.com]
+    url (regex): ["imgur\\.com/[A-Za-z0-9]{5,8}$"]
+    comment: |
+        Your submission has been automatically removed due to an indirect link to a hosted image.
+
+        Please be considerate of mobile and RES users, and resubmit your post as a direct link.
+
+         For your convenience, here is your submitted link with .jpg and .gif file extensions appended to the end. Please see if one works, and re-try your submission with one of the following links:
+
+        * {{url}}.jpg
+        * {{url}}.gifv
+
+        If the above links do not work, right-click on your image, select *Copy Image URL*, and paste that into the reddit submission page.
+
+        **Rule:**
+
+        >**No misdirecting links, sites that require a login, or URL shorteners** - In short: if your link doesn't go right to the content it will be removed. Sites that require a login to view the content are not allowed in r/linux. Example: A private Facebook post or a news organization that doesn't have free article views. URL shorteners and links that misdirect users to ads/jokes are also removed.
+
+    action: remove
+---
+    domain: [imgur.com]
+    url (regex): ["imgur\\.com/[A-Za-z0-9]{5,8},([A-Za-z0-9]{5,8},?)+", "gallery"]
+    action: remove
+    comment: |
+        Your submission has been automatically removed due to an indirect link to a hosted image.
+
+        Non-album multi-image links and imgur gallery links are not compatible with RES and mobile apps.
+
+        For multi-image links, please create an album and submit a link to that.
+
+        For gallery images, please right-click your image, choose *Copy Image URL*, and submit that direct image link to reddit.
+
+        **Rule:**
+
+        >**No misdirecting links, sites that require a login, or URL shorteners** - In short: if your link doesn't go right to the content it will be removed. Sites that require a login to view the content are not allowed in r/linux. Example: A private Facebook post or a news organization that doesn't have free article views. URL shorteners and links that misdirect users to ads/jokes are also removed.
+---
+    domain: [pinterest.com, snag.gy, uput.in, imgflip.com]
+    ~url: [i.snag.gy, i.uput.in, i.imgflip.com]
+    action: remove
+    comment: |
+        Your submission has been automatically removed due to an indirect link to a hosted image.
+
+        Please right-click your image, choose *Copy Image URL*, and submit that direct image link to reddit.
+
+        **Rule:**
+
+        >**No misdirecting links, sites that require a login, or URL shorteners** - In short: if your link doesn't go right to the content it will be removed. Sites that require a login to view the content are not allowed in r/linux. Example: A private Facebook post or a news organization that doesn't have free article views. URL shorteners and links that misdirect users to ads/jokes are also removed.
+---
+    domain: [tinypic.com, magaimg.net]
+    action: remove
+    comment: |
+        Your submission has been automatically removed due to an indirect link to a hosted image.
+
+        Unfortunately, the media host {{domain}} is not compatable with mobile apps and/or RES. Please be considerate of mobile and RES users and resubmit your content using a different media host.
+
+## End - Require Direct Image Hosts
+---
+    title (includes, regex): ["SJW"]
+    action: filter
+    action_reason: This {{kind}} has been removed due to a click-bait/flamewar title.
+    comment: |
+        This {{kind}} has been removed due to a click-bait/flamewar title.  If you feel this action has been made in error, please [message the mods](https://www.reddit.com/message/compose?to=%2Fr%2F{{subreddit}}&subject=Falmewar%20False%20Positive&message=Please%20Review%20{{permalink}}) to review it.
+
+        This post has been removed for violating [Reddiquette.](https://www.reddit.com/wiki/reddiquette), trolling users, or otherwise poor discussion** - r/Linux asks all users follow [Reddiquette.](https://www.reddit.com/wiki/reddiquette) Reddiquette is ever changing, so a revisit once in awhile is recommended.
+
+        **Rule:**
+
+        >**Reddiquette, trolling, or poor discussion** - r/Linux asks all users follow [Reddiquette.](https://www.reddit.com/wiki/reddiquette) Reddiquette is ever changing, so a revisit once in awhile is recommended. Top violations of this rule are trolling, starting a flamewar, or not "Remembering the human" aka being hostile or incredibly impolite.
+---
+##============================
+## Begin r/Linux specific section
+## Be aware that whitelisting, blacklisting, or various phrase filtering listed above this section might still be specific to r/linux
+##============================
+##----------------------------
+## Spam-blog rules - Complete Removal
+## Keep in mind there's various other sections about project-specific whitelisting
+##----------------------------
+    moderators_exempt: false
+    domain: ["omgubuntu.co.uk", "zdnet.com", "gamingonlinux.com"]
+    action: spam
+    set_flair: ["Removed","removed"]
+    comment: |
+        Your [{{kind}}]({{permalink}}) in /r/{{subreddit}} was automatically removed because it has been identified as either blog-spam, a link aggregator, or an otherwise low-effort news site.
+
+        Your submission contains rehosted content, usually paired with privacy-invading ads.
+
+        Please re-post your {{kind}} using the original source with the original title.
+
+        **Rule:**
+        >Posts that are identified as either blog-spam, a link aggregator, or an otherwise low-effort website are to be removed. Some reasons for removal are that they contain re-hosted content, usually paired with privacy-invading ads, without adding to the discussion. Posts should be submitted using the original source with the original title. If there's another discussion on the topic, the link is welcome to be submitted as a top level comment to aid the previous discussion.
+---
+##----------------------------
+## Spam-blog rules - Phoronix
+## Keep in mind there's various other sections about project-specific whitelisting
+    url (includes): "phoronix.com/scan.php?page=news_item"
+    action: spam
+    comment: |
+        Your [{{kind}}]({{permalink}}) in /r/{{subreddit}} was automatically removed because it has been identified as either blog-spam, a link aggregator, or an otherwise low-effort news site.
+
+        Your submission contains rehosted content, usually paired with privacy-invading ads.
+
+        Please re-post your {{kind}} using the original source with the original title.
+
+        **Rule:**
+        >Posts that are identified as either blog-spam, a link aggregator, or an otherwise low-effort website are to be removed. Some reasons for removal are that they contain re-hosted content, usually paired with privacy-invading ads, without adding to the discussion. Posts should be submitted using the original source with the original title. If there's another discussion on the topic, the link is welcome to be submitted as a top level comment to aid the previous discussion.
+---
+## Phoronix - catch all
+    body (includes): "phoronix.com"
+    action: spam
+    comment: |
+        Your [{{kind}}]({{permalink}}) in /r/{{subreddit}} was automatically removed because it has been identified as either blog-spam, a link aggregator, or an otherwise low-effort news site.
+
+        Your submission contains rehosted content, usually paired with privacy-invading ads.
+
+        Please re-post your {{kind}} using the original source with the original title.
+
+        **Rule:**
+
+        >Posts that are identified as either blog-spam, a link aggregator, or an otherwise low-effort website are to be removed. Some reasons for removal are that they contain re-hosted content, usually paired with privacy-invading ads, without adding to the discussion. Posts should be submitted using the original source with the original title. If there's another discussion on the topic, the link is welcome to be submitted as a top level comment to aid the previous discussion.
+---
+# phoronix forums
+# domain: [phoronix.com]
+    url (includes): "phoronix.com/forums"
+    action: spam
+    comment: |
+        Your [{{kind}}]({{permalink}}) in /r/{{subreddit}} was automatically removed because it has been identified as either blog-spam, a link aggregator, or an otherwise low-effort news site.
+
+        Your submission contains rehosted content, usually paired with privacy-invading ads.
+
+        Please re-post your {{kind}} using the original source with the original title.
+
+        **Rule:**
+
+        >Posts that are identified as either blog-spam, a link aggregator, or an otherwise low-effort website are to be removed. Some reasons for removal are that they contain re-hosted content, usually paired with privacy-invading ads, without adding to the discussion. Posts should be submitted using the original source with the original title. If there's another discussion on the topic, the link is welcome to be submitted as a top level comment to aid the previous discussion.
+---
+##----------------------------
+## Link aggregator rules - Complete Removal with comment
+## Keep in mind there's various other sections about project-specific whitelisting
+##----------------------------
+    moderators_exempt: false
+    url (includes): ["news.ycombinator.com", "slashdot.org"]
+    action: remove
+    set_flair: ["Removed","removed"]
+    comment: |
+        Your [{{kind}}]({{permalink}}) in /r/{{subreddit}} was automatically removed because it has been identified as either blog-spam, a link aggregator, or an otherwise low-effort news site.
+
+        Your submission contains rehosted content, usually paired with privacy-invading ads.
+
+        Please re-post your {{kind}} using the original source with the original title.
+
+        **Rule:**
+        >Posts that are identified as either blog-spam, a link aggregator, or an otherwise low-effort website are to be removed. Some reasons for removal are that they contain re-hosted content, usually paired with privacy-invading ads, without adding to the discussion. Posts should be submitted using the original source with the original title. If there's another discussion on the topic, the link is welcome to be submitted as a top level comment to aid the previous discussion.
+---
+##----------------------------
+## Unicode Rules - Remove text that can get around spam filter or be annoying in general
+## Also known as Strange character rules
+##----------------------------
+    body+title (regex, includes): ['(?!\xef\xbb\xbf|\xbb\xbf\xef\xbb\xbf|\xbf\xef\xbb\xbf)[^\t\n !-~\–\—…]{4,}']
+    action: filter
+    action_reason: "Strange character sequence [{{match}}]"
+---
+# Other Unicode characters; removed: ☐☑☹☺♡♥
+    body+title (regex, includes): ["(?#Cherokee)[\U000013A0-\U000013FF]+", "(?#Unified Canadian Aboriginal Syllabics)[\U00001400-\U0000167F]+", "(?#Box Drawing)[\U00002500-\U0000257F]+", "(?#Miscellaneous Symbols Block)[\U00002600-\U0000260F\U00002612-\U00002638\U0000263B-\U00002660\U00002662-\U00002664\U00002666-\U000026FF]+", "(?#Halfwidth and Fullwidth Forms)[\U0000FF00-\U0000FFEF]+", "(?#Enclosed Alphanumeric Supplement)[\U0001F100-\U0001F1FF]+"]
+    action: filter
+    action_reason: "Other Unicode characters [{{match}}]"
+---
+##----------------------------
+## Stallman Rules
+##----------------------------
+    title+body: "I'd just like to interject for a moment."
+    action: filter
+    action_reason: "Stallman copypasta. Please change this from filter to remove in automod configuration once it's confirmed to not be doing false positives."
 ---
 ##----------------------------
 ## Domain Whitelist
 ## Keep in mind there's various other sections about project-specific whitelisting
 ##----------------------------
     moderators_exempt: false
-    url (includes): ["developers.facebook.com", "blog.documentfoundation.org"]
+    url (includes): ["developers.facebook.com", "code.facebook.com", "blog.documentfoundation.org"]
     action: approve
 ---
 ##----------------------------
@@ -349,41 +553,8 @@
         Within this submission you will notice strong profanity and views not associated with /r/{{subreddit}}. Comments are not immune from filtering rules, regardless if you're quoting the original source.
 ---
 ##----------------------------
-## DOX prevention - Phone Numbers - from automod rules
-##----------------------------
-    moderators_exempt: false
-    title+body (regex): ["\\(?(\\d{3})\\)?([ .-])(\\d{3})([ .-])(\\d{4})","(\\d{5})([ .-])(\\d{6})","\\(?(\\d{4})\\)?([ .-])(\\d{3})([ .-])(\\d{3})","\\(?(\\d{2})\\)?([ .-])(\\d{4})([ .-])(\\d{4})","\\(?(\\d{2})\\)?([ .-])(\\d{3})([ .-])(\\d{4})","\\+([\\d ]{10,15})"]
-    ~body+url (regex): "(\\[[^\\]]+?\\]\\()?(https?://|www\\.)\\S+\\)?"
-    ~body+title+url (regex): ["(800|855|866|877|888|007|911)\\W*\\d{3}\\W*\\d{4}", "\\d{3}\\W*555\\W*\\d{4}", "999-999-9999", "000-000-0000", "123-456-7890", "111-111-1111", "012-345-6789", "888-888-8888", "281\\W*330\\W*8004", "777-777-7777", "678-999-8212", "999([ .-])119([ .-])7253","0118 999 811","0118 999 881", "ac867( -)?5309", "505\\W*503\\W*4455", "1024 2048"]
-    action: remove
-    action_reason: "DOXing - phone numbers"
-    modmail_subject: Doxxing Alert!
-    modmail: |
-
-        {{permalink}}
-
-        The above {{kind}} by /u/{{author}} was removed because it contained a possible phone number. Please investigate immediately.
-
-        If the user is doxxing, [ban them](/r/{{subreddit}}/about/banned) and [report them to the reddit admins](http://www.reddit.com/message/compose?to=%2Fr%2Freddit.com&subject=Doxxing%20Report:%20%2Fu%2F{{author}}&message=%2Fu%2F{{author}}%20posted%20a%20phone%20number:%20{{permalink}}) immediately.
-##----------------------------
-## DOX prevention - Credit Card numbers
-##----------------------------
-    moderators_exempt: false
-    title+body: "\\b(?:4[0-9]{12}(?:[0-9]{3})?|5[12345][0-9]{14}|3[47][0-9]{13}|3(?:0[012345]|[68][0-9])[0-9]{11}|6(?:011|5[0-9]{2})[0-9]{12}|(?:2131|1800|35[0-9]{3})[0-9]{11})\\b"
-    action: remove
-    action_reason: 'A credit card number was detected.'
-    modmail_subject: Doxxing Alert!
-    modmail: |
-
-        {{permalink}}
-
-        The above {{kind}} by /u/{{author}} was removed because it contained a possible credit card number. Please investigate immediately.
-
-        If the user is doxxing, [ban them](/r/{{subreddit}}/about/banned) and [report them to the reddit admins](http://www.reddit.com/message/compose?to=%2Fr%2Freddit.com&subject=Doxxing%20Report:%20%2Fu%2F{{author}}&message=%2Fu%2F{{author}}%20posted%20a%20credit%20card%20number:%20{{permalink}}) immediately.
----
-##----------------------------
 ## Report on too many user reports
-## Best to not auto remove to prevent abuse.
+## Best to not auto remove to prevent abuse, but that rule comes later.
 ##----------------------------
     moderators_exempt: true
     reports: 5
@@ -393,3 +564,68 @@
         {{permalink}}
 
         The above {{kind}} by /u/{{author}} was reported because it received more than 5 reports. Please review the post and approve or remove as needed.
+---
+##----------------------------
+## Filter reports that meet threshold
+##----------------------------
+    reports: 15
+    action: filter
+    comment: |
+        This post has been removed due to receiving too many reports from users. The mods have been notified and will re-approve if this removal was inappropriate.
+---
+##----------------------------
+## Questions identifier rule - Send to /r/linuxquestions
+##----------------------------
+    moderators_exempt: false
+    title (regex): ["(how|who|what|when|where|why).*\\?"]
+    body (includes, regex): ["help", "thanks", "please", "doesn't work", "problem", "issue", "boot", "driver"]
+    action: filter
+    comment: |
+        Your [{{kind}}]({{permalink}}) in /r/{{subreddit}} was automatically filtered for being a question.
+
+        **Rule:**
+
+        > This is not a support forum! Head to /r/linuxquestions or /r/linux4noobs for support or help. Looking for a distro? Try r/findmeadistro.
+---
+##----------------------------
+## Social Media Blacklist
+## See domain whitelisting for things like code.facebook.com approval
+##----------------------------
+    moderators_exempt: false
+    domain: ['facebook.com']
+    action: remove
+    set_flair: ["Removed","removed"]
+    comment: |
+        Your [{{kind}}]({{permalink}}) in /r/{{subreddit}} was automatically removed because it is a link to non-technical social media.
+
+        **Rule:**
+
+        >**No misdirecting links, sites that require a login, or URL shorteners** - In short: if your link doesn't go right to the content it will be removed. Sites that require a login to view the content are not allowed in r/linux. Example: A private Facebook post or a news organization that doesn't have free article views. URL shorteners and links that misdirect users to ads/jokes are also removed.
+---
+    standard: facebook links
+    action: remove
+    comment: |
+        Your [{{kind}}]({{permalink}}) in /r/{{subreddit}} was automatically removed because it is a link to non-technical social media.
+
+        **Rule:**
+
+        >**No misdirecting links, sites that require a login, or URL shorteners** - In short: if your link doesn't go right to the content it will be removed. Sites that require a login to view the content are not allowed in r/linux. Example: A private Facebook post or a news organization that doesn't have free article views. URL shorteners and links that misdirect users to ads/jokes are also removed.
+---
+##----------------------------
+## Spam - specific to r/linux
+##----------------------------
+## Domains
+    domain: [lintut.com,chris-shaw.com, omegle.com, techrights.org, sudosatirical.com, yhomerecording.blogspot.com, linuxhint.com, blogspot.in, rms.sexy, sysads.co.uk, trickyme.com, softpedia.com, minus.com]
+    action: spam
+    action_reason: This {{kind}} has been removed due to being from a spammed domain.
+---
+## .xyz links
+    domain (ends-with): "xyz"
+    action: spam
+---
+## Known spam phrases
+    title: ["ECHelp", "photosEC"]
+    action: remove
+---
+## Certain spam rules are not checked in to avoid tipping off spammers. They go below this line.
+## There are also rules for catching ban evasion.
